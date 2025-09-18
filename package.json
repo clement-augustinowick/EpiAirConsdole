@@ -1,0 +1,25 @@
+{
+  "name": "epi-air-console",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EpitechPGE3-2025/G-PRO-500-LIL-5-1-professionalwork-11.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EpitechPGE3-2025/G-PRO-500-LIL-5-1-professionalwork-11/issues"
+  },
+  "homepage": "https://github.com/EpitechPGE3-2025/G-PRO-500-LIL-5-1-professionalwork-11#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "qrcode": "^1.5.4",
+    "socket.io": "^4.8.1"
+  }
+}
