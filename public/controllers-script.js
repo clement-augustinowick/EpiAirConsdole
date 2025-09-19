@@ -1,0 +1,12 @@
+const urlParams = new URLSearchParams(window.location.search);
+const sessionID = urlParams.get('session');
+
+const socket = io('http://10.17.71.230:3000');
+
+document.getElementById('sessionCode-title').textContent = sessionID;
+
+document.getElementById('join-session').addEventListener('click', () => {
+    socket.emit('joined-session', sessionID, (response) => {
+        document.getElementById('success-title').textContent = response.success;
+    });
+});

@@ -5,7 +5,6 @@ let sessionID = null;
 document.getElementById('start-session').addEventListener('click', () => {
     socket.emit('create-session', null, (response) => {
         document.getElementById('sessionCode').textContent = response.sessionID;
-        sessionID = response;
-        console.log('Session ID :', sessionID);
+        document.getElementById('QRCode-container').innerHTML = `<img src="${response.qrDataUrl}" alt="QR code to connect players to session">`;
     });
 });
