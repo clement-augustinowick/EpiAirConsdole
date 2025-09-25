@@ -16,3 +16,7 @@ document.getElementById('quit-session').addEventListener('click', () => {
         document.getElementById('success-title').textContent = response.success;
     });
 });
+
+socket.on('session-deleted', (response) => {
+    document.getElementById('main-container').innerHTML += `<p>${response.message}</p>`
+})

@@ -16,3 +16,7 @@ socket.on('playerJoined', (response) => {
 socket.on('playerLeave', (response) => {
     document.getElementById('main-container').innerHTML += `<p>Player ${response.player} has left the session</p>`
 })
+
+socket.on('session-deleted', (response) => {
+    document.getElementById('main-container').innerHTML += `<p>${response.message}</p>`
+})

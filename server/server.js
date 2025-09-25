@@ -29,6 +29,8 @@ const nanoidCustom = customAlphabet(alphabet, 6);
 let session = {};
 let playerID = 0;
 
+const sessionTimeout = 10 * 60000;
+
 io.on('connection', (socket) => {
     socket.on('create-session', async (_, callback) => {
         mainScreenSocket = socket;
@@ -44,7 +46,8 @@ io.on('connection', (socket) => {
                 socketID: [socket.id],
                 id: [playerID]
             },
-            state: {}
+            state: {},
+            lastActivity : Date.now()
         };
 
         playerID += 1;
@@ -63,6 +66,8 @@ io.on('connection', (socket) => {
     });
 
     socket.on('join-session', (sessionID, callback) => {
+        updateActivity();
+
         if (!session){
             callback({success: 'Session not found'});
             return;
@@ -83,7 +88,7 @@ io.on('connection', (socket) => {
     });
 
     socket.on('quit-session', (sessionID, callback) => {
-        console.log(session);
+        updateActivity();
 
         if (session && session.players.socketID.find((element) => element == socket.id)){
             const index = session.players.socketID.indexOf(socket.id);
@@ -92,8 +97,6 @@ io.on('connection', (socket) => {
             session.host.emit('playerLeave', {player: session.players.id[index]});
             session.players.id.splice(index, 1);
         }
-
-        console.log(session);
     });
 });
 
@@ -113,3 +116,21 @@ function getLocalIP(){
     }
     return 'localhost';
 }
+
+function updateActivity(){
+    if (session)
+        session.lastActivity = Date.now();
+}
+
+const activity = setInterval(() => {
+    const now = Date.now();
+    
+    if (!session)
+        return;
+    
+    if (now - session.lastActivity > sessionTimeout){
+        console.log('Session has been deleted due to inactivity');
+        io.to(session.sessionID).emit('session-deleted', {message: 'Session has been deleted due to inactivity'});
+        session = {};
+    }
+}, 60000);
