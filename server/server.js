@@ -6,7 +6,7 @@ const {customAlphabet} = require('nanoid');
 const QRCode = require('qrcode');
 const os = require('os');
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT;
 const app = express();
 const server = http.createServer(app);
 const io = require('socket.io')(server, {
@@ -22,27 +22,32 @@ app.get('/controller', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/controller.html'));
 });
 
-let mainScreenSocket = null;
 
-const session = {};
 const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 const nanoidCustom = customAlphabet(alphabet, 6);
 
+let session = {};
+let playerID = 0;
+
 io.on('connection', (socket) => {
     socket.on('create-session', async (_, callback) => {
-        if (!mainScreenSocket){
-            mainScreenSocket = socket;
-        }
+        mainScreenSocket = socket;
+        playerID = 0;
 
         const sessionID = nanoidCustom();
         console.log('Session : ', sessionID, ' just start')
 
-        session[sessionID] = {
-            host: socket.id,
-            players: [socket.id],
+        session = {
+            sessionID: sessionID,
+            host: socket,
+            players: {
+                socketID: [socket.id],
+                id: [playerID]
+            },
             state: {}
         };
 
+        playerID += 1;
         socket.join(sessionID);
 
         const localIP = getLocalIP();
@@ -53,26 +58,42 @@ io.on('connection', (socket) => {
             callback({sessionID, qrDataUrl});
         } catch (error) {
             console.error('Failed to generate QR code: ', error);
-            callback({sessionID, qrDataUrl: null});
+            callback({sessionID, qrDataUrl: `http://${localIP}:${port}/controller?session=${sessionID}`});
         }
     });
 
-    socket.on('joined-session', (sessionID, callback) => {
+    socket.on('join-session', (sessionID, callback) => {
         if (!session){
             callback({success: 'Session not found'});
             return;
         }
 
-        if (session[sessionID].players.find((playerID) => playerID == socket.id)){
+        if (session.players.socketID.find((element) => element == socket.id)){
             callback({success: 'player has already joined the session'});
             return;
         }
 
-        session[sessionID].players.push(socket.id);
+        session.players.socketID.push(socket.id);
+        session.players.id.push(playerID);
         socket.join(sessionID);
-        mainScreenSocket.emit('playerJoined', {player: session[sessionID].players.length - 1});
-        callback({success: 'Controllers joined the session successfully'});
-        console.log('Controllers id : ', socket.id, ' joined the session : ', sessionID);
+        session.host.emit('playerJoined', {player: playerID});
+        callback({success: `Controllers joined the session successfully, you are the player ${playerID}`});
+        console.log('Controllers id : ', socket.id, ' joined the session : ', sessionID, ', id : ', playerID);
+        playerID += 1;
+    });
+
+    socket.on('quit-session', (sessionID, callback) => {
+        console.log(session);
+
+        if (session && session.players.socketID.find((element) => element == socket.id)){
+            const index = session.players.socketID.indexOf(socket.id);
+
+            session.players.socketID.pop(socket.id);
+            session.host.emit('playerLeave', {player: session.players.id[index]});
+            session.players.id.splice(index, 1);
+        }
+
+        console.log(session);
     });
 });
 

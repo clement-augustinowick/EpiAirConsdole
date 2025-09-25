@@ -12,3 +12,7 @@ document.getElementById('start-session').addEventListener('click', () => {
 socket.on('playerJoined', (response) => {
     document.getElementById('main-container').innerHTML += `<p>Player ${response.player} has joined the session</p>`
 })
+
+socket.on('playerLeave', (response) => {
+    document.getElementById('main-container').innerHTML += `<p>Player ${response.player} has left the session</p>`
+})

@@ -6,7 +6,13 @@ const socket = io('http://10.17.71.230:3000');
 document.getElementById('sessionCode-title').textContent = sessionID;
 
 document.getElementById('join-session').addEventListener('click', () => {
-    socket.emit('joined-session', sessionID, (response) => {
+    socket.emit('join-session', sessionID, (response) => {
+        document.getElementById('success-title').textContent = response.success;
+    });
+});
+
+document.getElementById('quit-session').addEventListener('click', () => {
+    socket.emit('quit-session', sessionID, (response) => {
         document.getElementById('success-title').textContent = response.success;
     });
 });
