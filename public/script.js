@@ -8,3 +8,7 @@ document.getElementById('start-session').addEventListener('click', () => {
         document.getElementById('QRCode-container').innerHTML = `<img src="${response.qrDataUrl}" alt="QR code to connect players to session">`;
     });
 });
+
+socket.on('playerJoined', (response) => {
+    document.getElementById('main-container').innerHTML += `<p>Player ${response.player} has joined the session</p>`
+})

@@ -22,6 +22,7 @@ app.get('/controller', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/controller.html'));
 });
 
+let mainScreenSocket = null;
 
 const session = {};
 const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -29,6 +30,10 @@ const nanoidCustom = customAlphabet(alphabet, 6);
 
 io.on('connection', (socket) => {
     socket.on('create-session', async (_, callback) => {
+        if (!mainScreenSocket){
+            mainScreenSocket = socket;
+        }
+
         const sessionID = nanoidCustom();
         console.log('Session : ', sessionID, ' just start')
 
@@ -58,8 +63,14 @@ io.on('connection', (socket) => {
             return;
         }
 
+        if (session[sessionID].players.find((playerID) => playerID == socket.id)){
+            callback({success: 'player has already joined the session'});
+            return;
+        }
+
         session[sessionID].players.push(socket.id);
         socket.join(sessionID);
+        mainScreenSocket.emit('playerJoined', {player: session[sessionID].players.length - 1});
         callback({success: 'Controllers joined the session successfully'});
         console.log('Controllers id : ', socket.id, ' joined the session : ', sessionID);
     });
