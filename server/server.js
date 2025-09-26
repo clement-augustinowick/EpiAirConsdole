@@ -27,14 +27,12 @@ const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 const nanoidCustom = customAlphabet(alphabet, 6);
 
 let session = {};
-let playerID = 0;
 
 const sessionTimeout = 10 * 60000;
 
 io.on('connection', (socket) => {
     socket.on('create-session', async (_, callback) => {
         mainScreenSocket = socket;
-        playerID = 0;
 
         const sessionID = nanoidCustom();
         console.log('Session : ', sessionID, ' just start')
@@ -44,13 +42,12 @@ io.on('connection', (socket) => {
             host: socket,
             players: {
                 socketID: [socket.id],
-                id: [playerID]
+                id: [0]
             },
             state: {},
             lastActivity : Date.now()
         };
 
-        playerID += 1;
         socket.join(sessionID);
 
         const localIP = getLocalIP();
@@ -67,6 +64,7 @@ io.on('connection', (socket) => {
 
     socket.on('join-session', (sessionID, callback) => {
         updateActivity();
+        const playerID = findPlayerId();
 
         if (!session){
             callback({success: 'Session not found'});
@@ -78,13 +76,17 @@ io.on('connection', (socket) => {
             return;
         }
 
+        if (playerID == -1){
+            callback({success: 'There are already 4 players connected'});
+            return;
+        }
+
         session.players.socketID.push(socket.id);
         session.players.id.push(playerID);
         socket.join(sessionID);
         session.host.emit('playerJoined', {player: playerID});
         callback({success: `Controllers joined the session successfully, you are the player ${playerID}`});
         console.log('Controllers id : ', socket.id, ' joined the session : ', sessionID, ', id : ', playerID);
-        playerID += 1;
     });
 
     socket.on('quit-session', (sessionID, callback) => {
@@ -134,3 +136,16 @@ const activity = setInterval(() => {
         session = {};
     }
 }, 60000);
+
+function findPlayerId(){
+    if (!session)
+        return -1;
+
+    for (let i = 1; i < 5; i++){
+        if (session && session.players.id.find((element) => element == i))
+            continue;
+        return i;
+    }
+
+    return -1;
+}
