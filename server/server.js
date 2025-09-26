@@ -32,8 +32,6 @@ const sessionTimeout = 10 * 60000;
 
 io.on('connection', (socket) => {
     socket.on('create-session', async (_, callback) => {
-        mainScreenSocket = socket;
-
         const sessionID = nanoidCustom();
         console.log('Session : ', sessionID, ' just start')
 
@@ -44,7 +42,6 @@ io.on('connection', (socket) => {
                 socketID: [socket.id],
                 id: [0]
             },
-            state: {},
             lastActivity : Date.now()
         };
 
@@ -55,7 +52,7 @@ io.on('connection', (socket) => {
 
         try {
             const qrDataUrl = await QRCode.toDataURL(controllerURL);
-            callback({sessionID, qrDataUrl});
+            callback({sessionID, qrDataUrl, link: `http://${localIP}:${port}/controller`});
         } catch (error) {
             console.error('Failed to generate QR code: ', error);
             callback({sessionID, qrDataUrl: `http://${localIP}:${port}/controller?session=${sessionID}`});
@@ -66,7 +63,7 @@ io.on('connection', (socket) => {
         updateActivity();
         const playerID = findPlayerId();
 
-        if (!session){
+        if (!session || !session.players){
             callback({success: 'Session not found'});
             return;
         }
@@ -95,9 +92,12 @@ io.on('connection', (socket) => {
         if (session && session.players.socketID.find((element) => element == socket.id)){
             const index = session.players.socketID.indexOf(socket.id);
 
+            console.log(`Player ${session.players.id[index]} has left the session`);
+            socket.leave(session.sessionID);
             session.players.socketID.pop(socket.id);
             session.host.emit('playerLeave', {player: session.players.id[index]});
             session.players.id.splice(index, 1);
+            callback({message: 'You have successfuly left the session'});
         }
     });
 });
@@ -138,11 +138,11 @@ const activity = setInterval(() => {
 }, 60000);
 
 function findPlayerId(){
-    if (!session)
+    if (!session || !session.players)
         return -1;
 
     for (let i = 1; i < 5; i++){
-        if (session && session.players.id.find((element) => element == i))
+        if (session.players.id.find((element) => element == i))
             continue;
         return i;
     }
