@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server/server.js",
+    "dev": "nodemon server/server.js"
   },
   "repository": {
     "type": "git",
@@ -18,7 +19,10 @@
   },
   "homepage": "https://github.com/EpitechPGE3-2025/G-PRO-500-LIL-5-1-professionalwork-11#readme",
   "dependencies": {
+    "dotenv": "^17.2.2",
     "express": "^5.1.0",
+    "nanoid": "^5.1.5",
+    "nodemon": "^3.1.10",
     "qrcode": "^1.5.4",
     "socket.io": "^4.8.1"
   }
