@@ -5,13 +5,29 @@
         <meta charset="utf-8"/>
         <link href="style.css" rel="stylesheet"/>
         <script src="https://cdn.socket.io/4.7.1/socket.io.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     </head>
 
     <body>
-        <h1>Welcome to the main page of my EpiAirConsole</h1>
+        <div class="menu">
+            <div class="menu-div" id="menu-div-left">
+                <a class="menu-btn" id="menu-btn-home" href="/">
+                    <i class="bi bi-house-door-fill" id="home-icon"></i>
+                </a>
+            </div>
+
+            <div class="menu-div-center">
+                <h2>EpiAirConsole</h2>
+            </div>
+
+            <div class="menu-div">
+                <button class="menu-btn" id="menu-btn-start-session">START SESSION</button>
+            </div>
+        </div>
+
+        <h1>Welcome to my EpiAirConsole</h1>
 
         <div id="main-container">
-            <button id="start-session">START</button>
             <p id="session-code"></p>
             <div id="QRCode-container"></div>
         </div>

@@ -3,7 +3,7 @@ const sessionID = urlParams.get('session');
 
 const socket = io('http://10.17.71.230:3000');
 
-document.getElementById('input-code-session').textContent = sessionID;
+document.getElementById('input-code-session').value = sessionID;
 
 // CONTROLLER -> SERVER
 document.getElementById('join-session').addEventListener('click', () => {
