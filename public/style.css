@@ -8,11 +8,17 @@ body {
     background: rgb(78, 78, 78);
 }
 
+/****************************************************/
+/* TEXT */
+/****************************************************/
 h1 {
     color: white;
-    margin: 100px 0;
     font-size: 2.5em;
     text-align: center;
+}
+
+h1#main-title {
+    margin: 100px 0;
 }
 
 h2 {
@@ -21,6 +27,18 @@ h2 {
     text-align: center;
 }
 
+p {
+    color: white;
+    font-size: 2em;
+}
+
+p.p-tutorial {
+    margin: 50px 0 25px 0;
+}
+
+/****************************************************/
+/* CONTAINER */
+/****************************************************/
 div {
     width: 100%;
     justify-content: center;
@@ -51,6 +69,59 @@ div#menu-div-left {
     display: block;
 }
 
+div.second-title {
+    width: 50%;
+}
+
+.slider-1 {
+    max-width: 600px;
+    margin: 100px auto;
+    overflow: hidden;
+    border: 1px solid white;
+}
+
+.slider-1 .slider {
+    display: flex;
+    flex-direction: initial;
+    justify-content: initial;
+    animation: slider-1 12s infinite ease-in-out;
+}
+
+.slider-1 p {
+    background: black;
+    flex-shrink: 0;
+    padding: 50px;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-size: 3em;
+}
+
+@keyframes slider-1 {
+    0%,
+    20% {
+        transform: translateX(0);
+    }
+    25%,
+    45% {
+        transform: translateX(-100%);
+    }
+    50%,
+    70% {
+        transform: translateX(-200%);
+    }
+    75%,
+    95% {
+        transform: translateX(-300%);
+    }
+    100% {
+        transform: translateX(-400%);
+    }
+}
+
+/****************************************************/
+/* BUTTON / LINK */
+/****************************************************/
 .menu-btn {
     height: 60%;
     border: none;
@@ -69,22 +140,22 @@ a#menu-btn-home {
 i.bi.bi-house-door-fill {
     font-size: 35px;
     color: white;
-    cursor: pointer;
 }
 
-button#menu-btn-start-session {
+a#menu-btn-start-session {
     background-color: rgb(35, 35, 35);
     color: greenyellow;
     border: 1px solid greenyellow;
     border-radius: 20px;
-    cursor: pointer;
+    text-decoration: none;
+    padding: 8px;
 }
 
-p {
-    color: white;
-    font-size: 2em;
-}
-
-button {
-    padding: 10px 20px;
+/****************************************************/
+/* VIDEO */
+/****************************************************/
+video {
+    width: 900px;
+    height: 500px;
+    border-radius: 20px;
 }
