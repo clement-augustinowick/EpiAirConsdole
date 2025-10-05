@@ -40,6 +40,10 @@ p.description {
     font-size: 1.6em;
 }
 
+p.p-session-info {
+    margin: 20px 0;
+}
+
 /****************************************************/
 /* CONTAINER */
 /****************************************************/
@@ -70,29 +74,36 @@ div#menu-div-left {
     display: block;
 }
 
+div.main-container {
+    width: 100%;
+    margin-top: 100px;
+    padding: 50px 0;
+}
+
 div.second-title {
     width: 50%;
 }
 
-.slider-1 {
+div.slider-1 {
     max-width: 90%;
     height: 200px;
     margin: 100px auto;
     overflow: hidden;
 }
 
-.slider-1 .slider {
+div.slider-1 div.slider {
     height: 100%;
     display: flex;
     flex-direction: initial;
+    justify-content: initial;
     animation: slider-1 30s infinite linear;
 }
 
-.slider-1:hover .slider {
+div.slider-1:hover div.slider {
   animation-play-state: paused;
 }
 
-.slide {
+div.slide {
     flex-shrink: 0;
     padding: 50px;
     width: 15%;
@@ -100,7 +111,7 @@ div.second-title {
     margin: 0 1%;
 }
 
-.slide img {
+div.slide img {
     width: 100%;
     height: auto;
     border-radius: 10px;
@@ -112,14 +123,18 @@ div.second-title {
         transform: translateX(0);
     }
     100% {
-        transform: translateX(-150%);
+        transform: translateX(-170%);
     }
+}
+
+div#QRCode-container {
+    margin-bottom: 20px;
 }
 
 /****************************************************/
 /* BUTTON / LINK */
 /****************************************************/
-.menu-btn {
+a.menu-btn {
     height: 60%;
     border: none;
 }
@@ -146,6 +161,27 @@ a#menu-btn-start-session {
     border-radius: 20px;
     text-decoration: none;
     padding: 8px;
+}
+
+button#btn-generate-session {
+    background-color: rgb(78, 78, 78);
+    color: greenyellow;
+    border: 1px solid greenyellow;
+    border-radius: 20px;
+    padding: 15px 20px;
+    font-size: 1.5em;
+    cursor: pointer;
+    margin-bottom: 75px;
+}
+
+button.qrcode-help {
+    background-color: rgb(78, 78, 78);
+    border: none;
+    color: rgb(112, 112, 249);
+    font-size: 1em;
+    cursor: pointer;
+    text-decoration: underline;
+    margin: 5px 0;
 }
 
 /****************************************************/

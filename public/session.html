@@ -21,27 +21,25 @@
             </div>
 
             <div class="menu-div" id="menu-div-right">
-                <a class="menu-btn" id="menu-btn-start-session" href="session.html">START SESSION</a>
             </div>
         </div>
 
-        <h1 id="main-title">Welcome to my EpiAirConsole</h1>
-
         <div class="main-container">
-            <div class="second-title">
-                <h2>You want to play with your friends but you haven't console ?</h2>
-                <h2>You are at the good place, you can play multiplayer games with
-                     only 1 computer and a smartphone per player.</h2>
-                <p class="p-tutorial">Follow the tutorial below to play</p>
-                <video controls autoplay loop muted><source src="video/tuto.mp4" type="video/mp4"></video>
-            </div>
+            <div id="session-container">
+                <button id="btn-generate-session">GENERATE</button>
 
-            <div class="slider-container slider-1">
-                <div class="slider">
-                </div>
+                <p class="p-session-info" id="session-code"></p>
+                <div id="QRCode-container"></div>
+                <button class="qrcode-help" style="display: none;">Le QR code ne s'affiche pas</button>
+                <button class="qrcode-help" style="display: none;">Je ne peux pas scanner le QR code</button>
+
+                <!-- <div id="pop-up-hepl-qrcode">
+
+                </div> -->
+                <!-- <p class="p-session-info" id="session-link"></p> -->
             </div>
         </div>
     </body>
     <script src="script.js"></script>
-    <script src="slider.js"></script>
+    <script src="session.js"></script>
 </html>
