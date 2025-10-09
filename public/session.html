@@ -28,15 +28,23 @@
             <div id="session-container">
                 <button id="btn-generate-session">GENERATE</button>
 
+                <div id="player-display">
+                    <p class="p-player" id="p-player-1">Player 1 : </p>
+                    <p class="p-player" id="p-player-2">Player 2 : </p>
+                    <p class="p-player" id="p-player-3">Player 3 : </p>
+                    <p class="p-player" id="p-player-4">Player 4 : </p>
+                </div>
+
                 <p class="p-session-info" id="session-code"></p>
                 <div id="QRCode-container"></div>
-                <button class="qrcode-help" style="display: none;">Le QR code ne s'affiche pas</button>
-                <button class="qrcode-help" style="display: none;">Je ne peux pas scanner le QR code</button>
+                <button class="qrcode-help" id="qrcode-help-1" style="display: none;">Le QR code ne s'affiche pas</button>
+                <button class="qrcode-help" id="qrcode-help-2" style="display: none;">Je ne peux pas scanner le QR code</button>
 
-                <!-- <div id="pop-up-hepl-qrcode">
-
-                </div> -->
-                <!-- <p class="p-session-info" id="session-link"></p> -->
+                <div id="pop-up-help-qrcode">
+                    <span id="close-pop-up">&times;</span>
+                    <p class="p-session-info">If you have trouble scanning the QR code you can enter the following link in your SMARTPHONE's web browser :</p>
+                    <p class="p-session-info" id="session-link"></p>
+                </div>
             </div>
         </div>
     </body>
