@@ -165,7 +165,8 @@ div#player-display {
 }
 
 div#player-display * {
-    margin: 0 8% 0 8%;
+    margin: 0 2% 0 2%;
+    width: 20%;
 }
 
 /****************************************************/

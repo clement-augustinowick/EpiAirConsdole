@@ -23,10 +23,11 @@ app.get('/controller', (req, res) => {
 });
 
 
-const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789';
+const alphabet = 'ABCDEFGHIJKLMNPQRSTUVWXYZ123456789';
 const nanoidCustom = customAlphabet(alphabet, 6);
 
 let session = {};
+let playerPseudo = ['Anonymous1', 'Anonymous2', 'Anonymous3', 'Anonymous4'];
 
 const sessionTimeout = 10 * 60000;
 
@@ -59,7 +60,7 @@ io.on('connection', (socket) => {
         }
     });
 
-    socket.on('join-session', (sessionID, callback) => {
+    socket.on('join-session', (data, callback) => {
         updateActivity();
         const playerID = findPlayerId();
 
@@ -80,24 +81,34 @@ io.on('connection', (socket) => {
 
         session.players.socketID.push(socket.id);
         session.players.id.push(playerID);
-        socket.join(sessionID);
-        session.host.emit('playerJoined', {player: playerID});
-        callback({success: `Controllers joined the session successfully, you are the player ${playerID}`});
-        console.log('Controllers id : ', socket.id, ' joined the session : ', sessionID, ', id : ', playerID);
+        socket.join(data.session);
+
+        if (data.pseudo == 'Anonymous'){
+            data.pseudo = playerPseudo[0];
+            playerPseudo.shift();
+        }
+        session.host.emit('playerJoined', {player: playerID, pseudo: data.pseudo});
+        callback({success: `Controllers joined the session successfully, you are the player ${playerID}`, pseudo: data.pseudo});
+        console.log(`${data.pseudo} has joined the session`);
     });
 
-    socket.on('quit-session', (sessionID, callback) => {
+    socket.on('quit-session', (data, callback) => {
         updateActivity();
+        const pseudo = ['Anonymous1', 'Anonymous2', 'Anonymous3', 'Anonymous4'];
 
-        if (session && session.players.socketID.find((element) => element == socket.id)){
+        if (pseudo.includes(data.pseudo) && !playerPseudo.includes(data.pseudo)){
+            playerPseudo.unshift(data.pseudo);
+        }
+
+        if (session && session.players && session.players.socketID.find((element) => element == socket.id)){
             const index = session.players.socketID.indexOf(socket.id);
 
-            console.log(`Player ${session.players.id[index]} has left the session`);
             socket.leave(session.sessionID);
             session.players.socketID.pop(socket.id);
             session.host.emit('playerLeave', {player: session.players.id[index]});
             session.players.id.splice(index, 1);
             callback({message: 'You have successfuly left the session'});
+            console.log(`${data.pseudo} has left the session`);
         }
     });
 });

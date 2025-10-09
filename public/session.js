@@ -30,13 +30,13 @@ document.getElementById('btn-generate-session').addEventListener('click', () => 
 
 // SERVER -> MAIN SCREEN
 socket.on('playerJoined', (response) => {
-    document.getElementById('session-container').innerHTML += `<p>Player ${response.player} has joined the session</p>`
+    document.getElementById(`p-player-${response.player}`).textContent += response.pseudo;
 })
 
 socket.on('playerLeave', (response) => {
-    document.getElementById('session-container').innerHTML += `<p>Player ${response.player} has left the session</p>`
+    document.getElementById(`p-player-${response.player}`).textContent = `Player ${response.player} :`;
 })
 
 socket.on('session-deleted', (response) => {
-    document.getElementById('session-container').innerHTML += `<p>${response.message}</p>`
+    document.getElementById('session-container').innerHTML += `<p>${response.message}</p>`;
 })

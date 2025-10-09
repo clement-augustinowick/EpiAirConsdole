@@ -3,17 +3,36 @@ const sessionID = urlParams.get('session');
 
 const socket = io('http://10.17.71.230:3000');
 
-document.getElementById('input-code-session').value = sessionID;
+const inputSession = document.getElementById('input-code-session');
+inputSession.value = sessionID;
+const inputPseudo = document.getElementById('input-pseudo');
 
 // CONTROLLER -> SERVER
-document.getElementById('join-session').addEventListener('click', () => {
-    socket.emit('join-session', sessionID, (response) => {
+document.getElementById('session-form').addEventListener('submit', function(event){
+    event.preventDefault();
+
+    if (!inputPseudo.value){
+        inputPseudo.value = 'Anonymous';
+    }
+
+    const data = {
+        session: inputSession.value,
+        pseudo: inputPseudo.value
+    };
+
+    socket.emit('join-session', data, (response) => {
         document.getElementById('success-title').textContent = response.success;
+        inputPseudo.value = response.pseudo;
     });
 });
 
 document.getElementById('quit-session').addEventListener('click', () => {
-    socket.emit('quit-session', sessionID, (response) => {
+    const data = {
+        session: inputSession.value,
+        pseudo: inputPseudo.value
+    };
+
+    socket.emit('quit-session', data, (response) => {
         document.getElementById('success-title').textContent = response.message;
     });
 });
