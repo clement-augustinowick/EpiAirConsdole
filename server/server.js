@@ -19,11 +19,11 @@ const io = require('socket.io')(server, {
 app.use(express.static(path.join(__dirname, '../public')));
 
 app.get('/controller', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/controller.html'));
+    res.sendFile(path.join(__dirname, '../public/controller/controller.html'));
 });
 
 
-const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789';
 const nanoidCustom = customAlphabet(alphabet, 6);
 
 let session = {};

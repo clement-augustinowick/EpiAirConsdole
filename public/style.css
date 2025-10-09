@@ -8,11 +8,17 @@ body {
     background: rgb(78, 78, 78);
 }
 
+/****************************************************/
+/* TEXT */
+/****************************************************/
 h1 {
     color: white;
-    margin: 100px 0;
     font-size: 2.5em;
     text-align: center;
+}
+
+h1#main-title {
+    margin: 100px 0;
 }
 
 h2 {
@@ -21,16 +27,36 @@ h2 {
     text-align: center;
 }
 
+p {
+    color: white;
+    font-size: 2em;
+}
+
+p.p-tutorial {
+    margin: 50px 0 25px 0;
+}
+
+p.description {
+    font-size: 1.6em;
+}
+
+p.p-session-info {
+    margin: 20px 0;
+}
+
+p.p-player {
+    font-size: 2em;
+}
+
+/****************************************************/
+/* CONTAINER */
+/****************************************************/
 div {
     width: 100%;
     justify-content: center;
     align-items: center;
     display: flex;
     flex-direction: column;
-}
-
-div.main-container * {
-    margin: 20px 0;
 }
 
 div.menu {
@@ -41,6 +67,7 @@ div.menu {
     top: 0;
     display: grid;
     grid-template-columns: 180px 1fr 180px;
+    z-index: 2;
 }
 
 div.menu-div {
@@ -51,7 +78,100 @@ div#menu-div-left {
     display: block;
 }
 
-.menu-btn {
+div.main-container {
+    width: 100%;
+    margin-top: 100px;
+    padding: 50px 0;
+}
+
+div.second-title {
+    width: 50%;
+}
+
+div.slider-1 {
+    max-width: 90%;
+    height: 200px;
+    margin: 100px auto;
+    overflow: hidden;
+}
+
+div.slider-1 div.slider {
+    height: 100%;
+    display: flex;
+    flex-direction: initial;
+    justify-content: initial;
+    animation: slider-1 30s infinite linear;
+}
+
+div.slider-1:hover div.slider {
+  animation-play-state: paused;
+}
+
+div.slide {
+    flex-shrink: 0;
+    padding: 50px;
+    width: 15%;
+    height: 100%;
+    margin: 0 1%;
+}
+
+div.slide img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 8px;
+}
+
+@keyframes slider-1 {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-170%);
+    }
+}
+
+div#QRCode-container {
+    margin-bottom: 20px;
+}
+
+div#pop-up-help-qrcode {
+    display: none;
+    position: fixed;
+    top: 100px;
+    width: 50%;
+    height: 40%;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(101, 101, 101);
+    padding: 20px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+span#close-pop-up {
+    position: absolute;
+    top: 0;
+    right: 20px;
+    cursor: pointer;
+    font-size: 48px;
+}
+
+div#player-display {
+    display: none;
+    flex-direction: row;
+    margin-bottom: 50px;
+}
+
+div#player-display * {
+    margin: 0 8% 0 8%;
+}
+
+/****************************************************/
+/* BUTTON / LINK */
+/****************************************************/
+a.menu-btn {
     height: 60%;
     border: none;
 }
@@ -69,22 +189,43 @@ a#menu-btn-home {
 i.bi.bi-house-door-fill {
     font-size: 35px;
     color: white;
-    cursor: pointer;
 }
 
-button#menu-btn-start-session {
+a#menu-btn-start-session {
     background-color: rgb(35, 35, 35);
     color: greenyellow;
     border: 1px solid greenyellow;
     border-radius: 20px;
+    text-decoration: none;
+    padding: 8px;
+}
+
+button#btn-generate-session {
+    background-color: rgb(78, 78, 78);
+    color: greenyellow;
+    border: 1px solid greenyellow;
+    border-radius: 20px;
+    padding: 15px 20px;
+    font-size: 1.5em;
     cursor: pointer;
+    margin-bottom: 50px;
 }
 
-p {
-    color: white;
-    font-size: 2em;
+button.qrcode-help {
+    background-color: rgb(78, 78, 78);
+    border: none;
+    color: rgb(112, 112, 249);
+    font-size: 1em;
+    cursor: pointer;
+    text-decoration: underline;
+    margin: 5px 0;
 }
 
-button {
-    padding: 10px 20px;
+/****************************************************/
+/* VIDEO */
+/****************************************************/
+video {
+    width: 900px;
+    height: 500px;
+    border-radius: 20px;
 }

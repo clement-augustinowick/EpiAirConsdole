@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>EpiAirConsole</title>
+        <meta charset="utf-8"/>
+        <link href="style.css" rel="stylesheet"/>
+        <script src="https://cdn.socket.io/4.7.1/socket.io.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    </head>
+
+    <body>
+        <div class="menu">
+            <div class="menu-div" id="menu-div-left">
+                <a class="menu-btn" id="menu-btn-home" href="/">
+                    <i class="bi bi-house-door-fill" id="home-icon"></i>
+                </a>
+            </div>
+
+            <div class="menu-div-center">
+                <h2>EpiAirConsole</h2>
+            </div>
+
+            <div class="menu-div" id="menu-div-right">
+            </div>
+        </div>
+
+        <div class="main-container">
+            <div id="session-container">
+                <button id="btn-generate-session">GENERATE</button>
+
+                <div id="player-display">
+                    <p class="p-player" id="p-player-1">Player 1 : </p>
+                    <p class="p-player" id="p-player-2">Player 2 : </p>
+                    <p class="p-player" id="p-player-3">Player 3 : </p>
+                    <p class="p-player" id="p-player-4">Player 4 : </p>
+                </div>
+
+                <p class="p-session-info" id="session-code"></p>
+                <div id="QRCode-container"></div>
+                <button class="qrcode-help" id="qrcode-help-1" style="display: none;">Le QR code ne s'affiche pas</button>
+                <button class="qrcode-help" id="qrcode-help-2" style="display: none;">Je ne peux pas scanner le QR code</button>
+
+                <div id="pop-up-help-qrcode">
+                    <span id="close-pop-up">&times;</span>
+                    <p class="p-session-info">If you have trouble scanning the QR code you can enter the following link in your SMARTPHONE's web browser :</p>
+                    <p class="p-session-info" id="session-link"></p>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="script.js"></script>
+    <script src="session.js"></script>
+</html>
