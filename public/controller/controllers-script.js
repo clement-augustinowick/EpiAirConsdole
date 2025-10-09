@@ -21,8 +21,10 @@ document.getElementById('session-form').addEventListener('submit', function(even
     };
 
     socket.emit('join-session', data, (response) => {
-        document.getElementById('success-title').textContent = response.success;
         inputPseudo.value = response.pseudo;
+        document.getElementById('session-form').style.display = 'none';
+        document.getElementById('session-form').reset();
+        document.getElementById('quit-session').style.display = 'block';
     });
 });
 
@@ -33,7 +35,8 @@ document.getElementById('quit-session').addEventListener('click', () => {
     };
 
     socket.emit('quit-session', data, (response) => {
-        document.getElementById('success-title').textContent = response.message;
+        document.getElementById('quit-session').style.display = 'none';
+        document.getElementById('session-form').style.display = 'block';
     });
 });
 

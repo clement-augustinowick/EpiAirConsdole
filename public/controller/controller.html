@@ -9,15 +9,6 @@
     </head>
 
     <body class="bg-[rgb(71,71,71)] flex justify-center items-center flex-col">
-        <h1 id="success-title"></h1>
-
-        <!-- <div class="bg-green-500 flex justify-center items-center flex-col w-1/4 mt-36 rounded-lg">
-            <input type="text" placeholder="123ABC" id="input-code-session" class="mb-2 mt-2">
-            <input type="text" placeholder="Anonymous" id="input-pseudo" class="mb-4">
-            <button id="join-session" class="bg-blue-500 w-1/3 mb-2">JOIN</button>
-            <button id="quit-session" class="bg-red-500 w-1/3 mb-2">QUIT</button>
-        </div> -->
-
         <form id="session-form" class="w-1/4 mt-36 bg-white rounded-lg p-8">
             <label for="input-code-session" class="left-0">Code Session <span class="text-red-500">*</span></label>
             <input type="text" placeholder="123ABC" id="input-code-session" name="code-session" required
@@ -31,7 +22,7 @@
                 JOIN
             </button>
         </form>
-        <button id="quit-session" class="bg-red-500 w-1/3 mb-2">QUIT</button>
+        <button id="quit-session" class="hidden bg-red-500 w-1/3 mb-2">QUIT</button>
     </body>
     <script src="controllers-script.js"></script>
 </html>
