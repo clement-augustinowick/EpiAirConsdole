@@ -22,9 +22,20 @@ document.getElementById('session-form').addEventListener('submit', function(even
 
     socket.emit('join-session', data, (response) => {
         inputPseudo.value = response.pseudo;
-        document.getElementById('session-form').style.display = 'none';
-        document.getElementById('session-form').reset();
-        document.getElementById('quit-session').style.display = 'block';
+        if (!response.success.startsWith('error')){
+            document.getElementById('session-form').style.display = 'none';
+            document.getElementById('session-form').reset();
+            document.getElementById('quit-session').style.display = 'block';
+            document.getElementById('title-waiting').style.display = 'block';
+        } else {
+            if (response.success.endsWith('1')){
+                alert('error: session not found');
+            } else if (response.success.endsWith('2')){
+                alert('error: player has already joined');
+            } else if (response.success.endsWith('3')){
+                alert('error: there are already 4 players connected');
+            }
+        }
     });
 });
 
@@ -36,6 +47,7 @@ document.getElementById('quit-session').addEventListener('click', () => {
 
     socket.emit('quit-session', data, (response) => {
         document.getElementById('quit-session').style.display = 'none';
+        document.getElementById('title-waiting').style.display = 'none';
         document.getElementById('session-form').style.display = 'block';
     });
 });

@@ -3,7 +3,6 @@
     <head>
         <title>EpiAirConsole</title>
         <meta charset="utf-8"/>
-        <!-- <link href="controllers-style.css" rel="stylesheet"/> -->
         <script src="https://cdn.socket.io/4.7.1/socket.io.min.js"></script>
         <script src="https://cdn.tailwindcss.com"></script>
     </head>
@@ -22,7 +21,8 @@
                 JOIN
             </button>
         </form>
-        <button id="quit-session" class="hidden bg-red-500 w-1/3 mb-2">QUIT</button>
+        <h1 id="title-waiting" class="hidden text-white text-3xl mt-20 mb-20">WAITING FOR PLAYER 1 TO CHOSE A GAME...</h1>
+        <button id="quit-session" class="hidden bg-red-500 w-[100px] text-2xl rounded-lg">QUIT</button>
     </body>
     <script src="controllers-script.js"></script>
 </html>

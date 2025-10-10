@@ -64,18 +64,18 @@ io.on('connection', (socket) => {
         updateActivity();
         const playerID = findPlayerId();
 
-        if (!session || !session.players){
-            callback({success: 'Session not found'});
+        if (!session || !session.players || session.sessionID != data.session){
+            callback({success: 'error1'});
             return;
         }
 
         if (session.players.socketID.find((element) => element == socket.id)){
-            callback({success: 'player has already joined the session'});
+            callback({success: 'error2'});
             return;
         }
 
         if (playerID == -1){
-            callback({success: 'There are already 4 players connected'});
+            callback({success: 'error3'});
             return;
         }
 
@@ -83,7 +83,7 @@ io.on('connection', (socket) => {
         session.players.id.push(playerID);
         socket.join(data.session);
 
-        if (data.pseudo == 'Anonymous'){
+        if (data.pseudo == 'Anonymous' || data.pseudo == 'undefine'){
             data.pseudo = playerPseudo[0];
             playerPseudo.shift();
         }
@@ -144,6 +144,7 @@ const activity = setInterval(() => {
     if (now - session.lastActivity > sessionTimeout){
         console.log('Session has been deleted due to inactivity');
         io.to(session.sessionID).emit('session-deleted', {message: 'Session has been deleted due to inactivity'});
+        playerPseudo = ['Anonymous1', 'Anonymous2', 'Anonymous3', 'Anonymous4'];
         session = {};
     }
 }, 60000);
