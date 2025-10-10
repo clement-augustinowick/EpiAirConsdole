@@ -27,6 +27,13 @@ h2 {
     text-align: center;
 }
 
+h3 {
+    color: white;
+    font-size: 1.5em;
+    margin: 15px 0 15px 30px;
+    width: 100%;
+}
+
 p {
     color: white;
     font-size: 2em;
@@ -46,6 +53,13 @@ p.p-session-info {
 
 p.p-player {
     font-size: 2em;
+}
+
+p.p-description-text {
+    font-size: 1em;
+    color: white;
+    width: 100%;
+    margin: 0 10px 20px 50px;
 }
 
 /****************************************************/
@@ -168,6 +182,43 @@ div#player-display * {
     margin: 0 8% 0 8%;
 }
 
+div.catalog {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: initial;
+    align-items: initial;
+}
+
+div.game-card {
+    flex-shrink: 0;
+    padding: 50px;
+    width: 15%;
+    height: 100%;
+    margin: 0 1%;
+    text-align: center;
+}
+
+div.game-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 8px;
+}
+
+div.description-game {
+    width: 400px;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.3s ease;
+    background-color: rgb(58, 58, 58);
+    margin-top: 30px;
+    border-radius: 20px;
+    text-align: left;
+    justify-content: initial;
+}
+
+
 /****************************************************/
 /* BUTTON / LINK */
 /****************************************************/
@@ -220,6 +271,46 @@ button.qrcode-help {
     text-decoration: underline;
     margin: 5px 0;
 }
+
+button#qrcode-help-2 {
+    margin-bottom: 50px;
+}
+
+button.btn-game-card {
+    background-color: rgb(78, 78, 78);
+    border: 1px solid greenyellow;
+    color: greenyellow;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    margin-top: 20px;
+    border-radius: 20px;
+}
+
+button.btn-game-card:active {
+    background-color: greenyellow;
+    color: rgb(78, 78, 78);
+}
+
+button.btn-game-card-description {
+    background-color: rgb(78, 78, 78);
+    color: rgb(39, 194, 245);
+    font-size: 1em;
+    cursor: pointer;
+    margin-top: 20px;
+    border: none;
+    display: inline-flex;
+}
+
+span.btn-game-description-arrow {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+span.btn-game-description-arrow.rotated {
+    transform: rotate(180deg);
+}
+
 
 /****************************************************/
 /* VIDEO */
