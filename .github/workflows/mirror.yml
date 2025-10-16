@@ -1,0 +1,25 @@
+name: Mirror repository
+
+on:
+  push:
+    branch:
+      - main
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source repository
+        uses: action/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Push to target repository
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-action[bot]@users.noreply.github.com"
+
+          git remote add mirror https://clementaugustinowick:${{ secrets.TARGET_TOKEN }}@github.com/pitechPGE3-2025/G-PRO-500-LIL-5-1-professionalwork-11.git
+
+          git push --mirror mirror
