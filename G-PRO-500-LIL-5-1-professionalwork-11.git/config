@@ -1,0 +1,9 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = true
+[remote "origin"]
+	url = git@github.com:EpitechPGE3-2025/G-PRO-500-LIL-5-1-professionalwork-11.git
+	tagOpt = --no-tags
+	fetch = +refs/*:refs/*
+	mirror = true
