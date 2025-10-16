@@ -20,6 +20,6 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-action[bot]@users.noreply.github.com"
 
-          git remote add mirror https://EpitechPGE3-2025:${{ secrets.TOKEN_EPIAIRCONSOLE }}@github.com/EpitechPGE3-2025/G-PRO-500-LIL-5-1-professionalwork-11.git
+          git remote add mirror https://clementaugustinowick:${{ secrets.TOKEN_EPIAIRCONSOLE }}@github.com/EpitechPGE3-2025/G-PRO-500-LIL-5-1-professionalwork-11.git
 
           git push --mirror mirror
