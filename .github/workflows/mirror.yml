@@ -17,9 +17,11 @@ jobs:
 
       - name: Push to target repository
         run: |
+          set -x
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-action[bot]@users.noreply.github.com"
 
+          git remote -v
           git remote add mirror https://clementaugustinowick:${{ secrets.TARGET_TOKEN }}@github.com/pitechPGE3-2025/G-PRO-500-LIL-5-1-professionalwork-11.git
 
           git push --mirror mirror
